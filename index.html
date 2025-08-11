@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Monitoring Kandang Ayam</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #121826;
+      color: #e1e1e1;
+      margin: 0;
+      padding: 1.5rem;
+    }
+    .card {
+      background: #1c2133;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgb(124 58 237 / 0.6);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .glow-purple {
+      box-shadow:
+        0 0 10px rgb(139 92 246 / 0.45),
+        inset 0 0 10px rgb(139 92 246 / 0.5);
+    }
+    .glow-orange {
+      box-shadow:
+        0 0 18px rgb(252 211 77 / 0.8),
+        inset 0 0 10px rgb(252 211 77 / 0.8);
+    }
+    .glow-blue {
+      box-shadow:
+        0 0 18px rgb(96 165 250 / 0.8),
+        inset 0 0 10px rgb(96 165 250 / 0.8);
+    }
+    .time {
+      font-size: 2.25rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      font-variant-numeric: tabular-nums;
+    }
+    .status-ideal {
+      color: #31b9e2;
+      font-weight: 700;
+    }
+    .status-on {
+      color: #1871c4;
+      font-weight: 700;
+    }
+    .status-off {
+      color: #a1a1aa;
+      font-weight: 600;
+    }
+    .btn-primary {
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 0.75rem;
+      padding: 0.4rem 1rem;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.3);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+      border: none;
+    }
+    .btn-fan {
+      background: linear-gradient(90deg, #fb5607, #ff006e);
+      color: white;
+    }
+    .btn-pump {
+      background: linear-gradient(90deg, #22d3ee, #0284c7);
+      color: white;
+    }
+    .btn-feed {
+      background: linear-gradient(90deg, #facc15, #fbbf24);
+      color: #444028;
+    }
+    .btn-primary:focus-visible {
+      outline: 2px solid white;
+      outline-offset: 3px;
+    }
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    .progress-bar {
+      border-radius: 9999px;
+      height: 0.6rem;
+      background-color: #2c2f48;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: #22c55e;
+      transition: width 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-[#1c2133] rounded-xl p-6 mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div class="flex items-center gap-4">
+      <div class="w-20 h-20 flex justify-center items-center bg-yellow-500 rounded-full shadow-lg shrink-0">
+        <div class="w-20 h-20 flex justify-center items-center bg-yellow-500 rounded-full shadow-lg shrink-0 overflow-hidden">
+  <img
+    src="download.jfif"
+    alt="Logo kartun ayam"
+    class="w-full h-full object-contain"
+  />
+</div>
+
+      </div>
+      <div>
+        <h1 class="text-yellow-400 text-xl font-extrabold mb-1 leading-tight uppercase tracking-wide select-none">
+          DASHBOARD MONITORING KANDANG AYAM
+        </h1>
+        <p class="text-sm text-cyan-400 font-semibold select-text">
+          Selamat Datang! <span class="font-extrabold">Ayam Sehat, Telurpun Lezat!</span>
+        </p>
+      </div>
+    </div>
+    <time class="time select-text" aria-live="polite" id="time-display" aria-label="Waktu sekarang">--:--:--</time>
+  </header>
+
+  <main class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <section class="md:col-span-2 space-y-8">
+      <h2 class="text-white font-semibold text-lg mb-4">Kandangku</h2>
+      <div class="grid grid-cols-3 gap-6 mb-4">
+        <article class="card glow-purple p-6">
+          <span aria-hidden="true" class="text-purple-500 text-2xl select-none">💡</span>
+          <p class="text-sm text-white font-semibold mb-1">Jumlah Ayam</p>
+          <p class="text-3xl font-extrabold">3200 <span class="text-base font-medium">ekor</span></p>
+        </article>
+        <article class="card glow-purple p-6">
+          <span aria-hidden="true" class="text-purple-500 text-2xl select-none">🍗</span>
+          <p class="text-sm text-white font-semibold mb-1">Jumlah Pakan</p>
+          <p class="text-3xl font-extrabold">510 <span class="text-base font-medium">Kg</span></p>
+        </article>
+        <article class="card glow-purple p-6">
+          <span aria-hidden="true" class="text-purple-500 text-2xl select-none">💧</span>
+          <p class="text-sm text-white font-semibold mb-1">Air Minum</p>
+          <p class="text-3xl font-extrabold">180 <span class="text-base font-medium">L</span></p>
+        </article>
+      </div>
+
+      <div class="flex flex-wrap sm:flex-nowrap gap-6 mb-6">
+        <div class="flex-1 rounded-xl glow-orange p-6">
+          <p class="font-semibold flex items-center gap-2 text-yellow-600"><span aria-hidden="true">💡</span> Intensitas Cahaya</p>
+          <p class="text-3xl font-bold">48699 Lux</p>
+          <p class="text-sm mt-1 text-yellow-400">
+            Status Lampu: <span class="font-extrabold text-green-400">MENYALA</span> <span aria-hidden="true">☀️</span>
+          </p>
+        </div>
+
+        <div class="flex-1 rounded-xl bg-[#1c2133] p-6">
+          <p class="font-semibold flex items-center gap-2 text-gray-300"><span aria-hidden="true">🏔️</span> Ketinggian Lokasi</p>
+          <p class="text-3xl font-bold">452.8 <span class="text-base font-medium">mdpl</span></p>
+          <p class="text-sm text-gray-400 mt-1">Dari permukaan laut</p>
+        </div>
+      </div>
+
+      <div class="card p-8 flex flex-col items-center text-center max-w-md mx-auto rounded-xl bg-[#1c2133]">
+        <p class="font-bold text-lg flex items-center gap-2 mb-2"><span aria-hidden="true" class="text-red-600">🌡️</span> Suhu Kandang</p>
+        <p class="text-green-500 font-extrabold mb-1 text-xl uppercase select-text">Status: IDEAL</p>
+        <p class="text-6xl font-extrabold select-text">27.6<span class="text-3xl align-top">°C</span></p>
+        <div role="progressbar" aria-valuemin="24" aria-valuemax="30" aria-valuenow="27.6" aria-label="Progres suhu kandang" class="progress-bar w-full mt-5 mb-2">
+          <div class="progress-bar-fill" style="width: 70%"></div>
+        </div>
+        <p class="text-xs text-gray-400">Rekomendasi: 24–30°C untuk ayam petelur</p>
+      </div>
+    </section>
+
+    <aside class="flex flex-col gap-8">
+      <section class="card p-6 rounded-xl bg-[#1c2133]">
+        <h2 class="text-white font-semibold text-lg mb-4">Grafik Suhu & Kelembapan</h2>
+        <div class="bg-[#2c2f48] rounded-lg p-2 flex justify-center items-center">
+          <img
+            src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7d485e2d-b751-4887-8a66-c2fb50d02702.png"
+            alt="Grafik garis berwarna kuning, biru, dan merah menunjukkan perubahan nilai suhu, kelembapan, dan tekanan dari waktu ke waktu dengan sumbu horizontal menampilkan waktu dan sumbu vertikal nilai sensor"
+            class="rounded-md"
+          />
+        </div>
+      </section>
+
+      <section class="card p-6 rounded-xl bg-[#1c2133]">
+        <h2 class="text-white font-semibold text-lg mb-4">Kontrol Peralatan</h2>
+
+        <div class="mb-4">
+          <button id="btn-fan" class="btn-primary btn-fan w-full flex justify-between items-center" aria-pressed="false" aria-label="Nyalakan Kipas">
+            <div class="flex items-center gap-3">
+              <span aria-hidden="true" class="text-2xl">🌀</span>
+              <div class="text-left">
+                <p class="font-semibold text-lg text-white">Kipas</p>
+                <p>Status: <span id="status-fan" class="status-off">Mati</span></p>
+              </div>
+            </div>
+            <span id="label-fan" class="text-sm font-semibold tracking-wide select-none">Nyalakan</span>
+          </button>
+        </div>
+
+        <div class="mb-4">
+          <button id="btn-pump" class="btn-primary btn-pump w-full flex justify-between items-center" aria-pressed="false" aria-label="Nyalakan Pompa">
+            <div class="flex items-center gap-3">
+              <span aria-hidden="true" class="text-2xl">💧</span>
+              <div class="text-left">
+                <p class="font-semibold text-lg text-white">Pompa</p>
+                <p>Status: <span id="status-pump" class="status-off">Mati</span></p>
+              </div>
+            </div>
+            <span id="label-pump" class="text-sm font-semibold tracking-wide select-none">Nyalakan</span>
+          </button>
+        </div>
+
+        <div>
+          <button id="btn-feed" class="btn-primary btn-feed w-full flex justify-between items-center" aria-pressed="false" aria-label="Nyalakan Pakan">
+            <div class="flex items-center gap-3">
+              <span aria-hidden="true" class="text-2xl">🍽️</span>
+              <div class="text-left">
+                <p class="font-semibold text-lg text-[#444028]">Pakan</p>
+                <p>Status: <span id="status-feed" class="status-off">Mati</span></p>
+              </div>
+            </div>
+            <span id="label-feed" class="text-sm font-semibold tracking-wide select-none">Nyalakan</span>
+          </button>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <script>
+    // Update real time clock every second
+    function updateTime() {
+      const timeDisplay = document.getElementById('time-display');
+      const now = new Date();
+      const options = { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+      timeDisplay.textContent = now.toLocaleTimeString('id-ID', options);
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // Control Buttons Logic (Toggle On/Off)
+    const controls = [
+      { btnId: 'btn-fan', statusId: 'status-fan', labelId: 'label-fan' },
+      { btnId: 'btn-pump', statusId: 'status-pump', labelId: 'label-pump' },
+      { btnId: 'btn-feed', statusId: 'status-feed', labelId: 'label-feed' }
+    ];
+
+    controls.forEach(({ btnId, statusId, labelId }) => {
+      const btn = document.getElementById(btnId);
+      const status = document.getElementById(statusId);
+      const label = document.getElementById(labelId);
+      btn.addEventListener('click', () => {
+        const isOn = btn.getAttribute('aria-pressed') === 'true';
+        btn.setAttribute('aria-pressed', !isOn);
+        if (!isOn) {
+          // Turning ON
+          status.textContent = 'Hidup';
+          status.classList.remove('status-off');
+          status.classList.add('status-on');
+          label.textContent = 'Matikan';
+        } else {
+          // Turning OFF
+          status.textContent = 'Mati';
+          status.classList.remove('status-on');
+          status.classList.add('status-off');
+          label.textContent = 'Nyalakan';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
